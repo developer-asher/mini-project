@@ -1,0 +1,157 @@
+body {
+  font-size: 14px;
+  font-family: 'Noto Serif KR', serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+a:link,
+a:visited {
+  text-decoration: none;
+  color: #000;
+}
+.clear::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.blind {
+  position: absolute;
+  left: -9999em;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+
+.hd {
+  padding: 20px 0;
+}
+.hd__inner {
+  width: 80%;
+  margin: auto;
+}
+.hd__logo {
+  margin-top: 3px;
+  float: left;
+  font-size: 25px;
+  font-family: 'Raleway', sans-serif;
+}
+.btn__login {
+  border: none;
+  padding: 0;
+  float: right;
+  background-color: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  color: #333333;
+}
+/* .hd__btns {
+  float: right;
+  text-align: right;
+}
+.hd__btns > li {
+  margin-left: 10px;
+  float: left;
+}
+.hd__btns button {
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  background-color: #48646f;
+  color: #fff;
+} */
+
+.banner {
+  width: 100%;
+  height: 800px;
+  background: #ccc url('../images/camping.jpeg') no-repeat center 80%;
+  background-size: cover;
+}
+
+.sort_wrap {
+  margin: 80px 0 40px 0;
+  padding: 20px;
+  border-radius: 2px;
+  text-align: center;
+  background-color: #48646f80;
+}
+.sorts:first-child {
+  margin-left: 0;
+}
+.sorts {
+  width: 150px;
+  margin-left: 40px;
+  border: 1px solid #333;
+  border-radius: 2px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+#sort_loc,
+#sort_theme {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #fff url('../images/arrow_down.png') no-repeat 90% 50%/15px auto;
+  background-size: 10px auto;
+}
+#sort_view {
+  background-color: #fff;
+}
+
+.camping__list {
+  width: calc(92% / 5);
+  margin-right: 2%;
+  float: left;
+  background-color: #eee;
+}
+.camping__list:last-child {
+  margin-right: 0;
+}
+.camping__desc {
+  padding: 0 5px 5px 5px;
+  box-sizing: border-box;
+}
+.camping__link {
+  padding: 3px 5px;
+  background-color: salmon;
+}
+.camping__review {
+  border: none;
+  padding: 3px 5px;
+  line-height: 25px;
+  cursor: pointer;
+  background-color: bisque;
+}
+
+.paging {
+  margin: 80px 0 40px 0;
+  text-align: center;
+}
+.paging > li:first-child {
+  margin-left: 0;
+}
+.paging > li {
+  display: inline-block;
+  margin-left: 10px;
+}
+.paging__button {
+  border: none;
+  padding: 5px 10px;
+  background-color: transparent;
+}
+.paging__button.on {
+  position: relative;
+  font-weight: bold;
+  color: hsl(35, 70%, 53%);
+}
