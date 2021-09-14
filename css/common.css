@@ -222,6 +222,39 @@ a:visited {
   background: transparent url(../images/footprints.png) no-repeat left center;
   background-size: 30px auto;
 }
+.ft__review {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+}
+.form__desc {
+  margin: 0;
+  padding: 10px 5px;
+  background-color: #eee;
+  box-sizing: border-box;
+}
+.star {
+  border: none;
+  width: 25px;
+  height: 25px;
+  line-height: 15px;
+  padding: 0;
+  font-size: 20px;
+  background-color: transparent;
+  color: #eee;
+  cursor: pointer;
+}
+.star.on {
+  color: #faf302;
+}
+.star > i {
+  vertical-align: bottom;
+}
+
+#write {
+  width: 100%;
+}
 
 .paging {
   margin: 80px 0 40px 0;
