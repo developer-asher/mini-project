@@ -23,6 +23,7 @@
       src="https://kit.fontawesome.com/8246ad551c.js"
       crossorigin="anonymous"
     ></script>
+    <script src="js/main.js" defer></script>
   </head>
   <body>
     <header class="hd clear">
@@ -31,18 +32,16 @@
           <a href="">where we go</a>
         </h1>
         <button class="btn__login"><i class="far fa-user-circle"></i></button>
-        <!-- <ul class="hd__btns clear">
-          <li>
-            <button class="btn__login">로그인</button>
-          </li>
-          <li>
-            <button class="btn__sign">회원가입</button>
-          </li>
-        </ul> -->
       </div>
     </header>
 
-    <div class="banner"></div>
+    <div class="banner__wrap">
+      <ul class="banner clear">
+        <li class="banner__list1"></li>
+        <li class="banner__list2"></li>
+        <li class="banner__list3"></li>
+      </ul>
+    </div>
 
     <div class="container">
       <form class="sort_wrap">
@@ -105,22 +104,34 @@
               <button class="camping__review">리뷰작성</button>
               <span class="camping__view">조회수 : 150000</span>
             </div>
-          </li>
-          <li class="camping__list">
-            <img
-              src="http://placehold.it/150x150"
-              alt="임시 이미지"
-              class="camping__img"
-            />
-            <div class="camping__desc">
-              <p class="camping__tag">
-                연관태그: #바다가보이는 #수영장있는 #둘레길
-              </p>
-              <p class="camping__name">경기도 xxx 캠핑장</p>
-              <p class="camping__loc">경기도 안양시 xxxx</p>
-              <a class="camping__link" href="">바로가기</a>
-              <button class="camping__review">리뷰작성</button>
-              <span class="camping__view">조회수 : 150000</span>
+            <div class="article__bg modal">
+              <article class="review__popUp">
+                <div>
+                  <i></i>
+                  <p class="review__question">
+                    해당 캠핑장에 대해 어떻게 생각하시나요?
+                  </p>
+                </div>
+                <table class="review__tb">
+                  <thead>
+                    <tr>
+                      <th class="review__author">작성자</th>
+                      <th class="review__comment">코멘트</th>
+                      <th class="review__star">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조성민</td>
+                      <td>좋습니다</td>
+                      <td>4.6점</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn__close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </article>
             </div>
           </li>
           <li class="camping__list">
@@ -139,22 +150,32 @@
               <button class="camping__review">리뷰작성</button>
               <span class="camping__view">조회수 : 150000</span>
             </div>
-          </li>
-          <li class="camping__list">
-            <img
-              src="http://placehold.it/150x150"
-              alt="임시 이미지"
-              class="camping__img"
-            />
-            <div class="camping__desc">
-              <p class="camping__tag">
-                연관태그: #바다가보이는 #수영장있는 #둘레길
-              </p>
-              <p class="camping__name">경기도 xxx 캠핑장</p>
-              <p class="camping__loc">경기도 안양시 xxxx</p>
-              <a class="camping__link" href="">바로가기</a>
-              <button class="camping__review">리뷰작성</button>
-              <span class="camping__view">조회수 : 150000</span>
+            <div class="article__bg modal">
+              <article class="review__popUp">
+                <div>
+                  <i></i>
+                  <p>해당 캠핑장에 대해 어떻게 생각하시나요?</p>
+                </div>
+                <table class="review__tb">
+                  <thead>
+                    <tr>
+                      <th class="review__author">작성자</th>
+                      <th class="review__comment">코멘트</th>
+                      <th class="review__star">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조성민</td>
+                      <td>좋습니다</td>
+                      <td>4.6점</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn__close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </article>
             </div>
           </li>
           <li class="camping__list">
@@ -172,6 +193,121 @@
               <a class="camping__link" href="">바로가기</a>
               <button class="camping__review">리뷰작성</button>
               <span class="camping__view">조회수 : 150000</span>
+            </div>
+            <div class="article__bg modal">
+              <article class="review__popUp">
+                <div>
+                  <i></i>
+                  <p>해당 캠핑장에 대해 어떻게 생각하시나요?</p>
+                </div>
+                <table class="review__tb">
+                  <thead>
+                    <tr>
+                      <th class="review__author">작성자</th>
+                      <th class="review__comment">코멘트</th>
+                      <th class="review__star">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조성민</td>
+                      <td>좋습니다</td>
+                      <td>4.6점</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn__close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </article>
+            </div>
+          </li>
+          <li class="camping__list">
+            <img
+              src="http://placehold.it/150x150"
+              alt="임시 이미지"
+              class="camping__img"
+            />
+            <div class="camping__desc">
+              <p class="camping__tag">
+                연관태그: #바다가보이는 #수영장있는 #둘레길
+              </p>
+              <p class="camping__name">경기도 xxx 캠핑장</p>
+              <p class="camping__loc">경기도 안양시 xxxx</p>
+              <a class="camping__link" href="">바로가기</a>
+              <button class="camping__review">리뷰작성</button>
+              <span class="camping__view">조회수 : 150000</span>
+            </div>
+            <div class="article__bg modal">
+              <article class="review__popUp">
+                <div>
+                  <i></i>
+                  <p>해당 캠핑장에 대해 어떻게 생각하시나요?</p>
+                </div>
+                <table class="review__tb">
+                  <thead>
+                    <tr>
+                      <th class="review__author">작성자</th>
+                      <th class="review__comment">코멘트</th>
+                      <th class="review__star">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조성민</td>
+                      <td>좋습니다</td>
+                      <td>4.6점</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn__close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </article>
+            </div>
+          </li>
+          <li class="camping__list">
+            <img
+              src="http://placehold.it/150x150"
+              alt="임시 이미지"
+              class="camping__img"
+            />
+            <div class="camping__desc">
+              <p class="camping__tag">
+                연관태그: #바다가보이는 #수영장있는 #둘레길
+              </p>
+              <p class="camping__name">경기도 xxx 캠핑장</p>
+              <p class="camping__loc">경기도 안양시 xxxx</p>
+              <a class="camping__link" href="">바로가기</a>
+              <button class="camping__review">리뷰작성</button>
+              <span class="camping__view">조회수 : 150000</span>
+            </div>
+            <div class="article__bg modal">
+              <article class="review__popUp">
+                <div>
+                  <i></i>
+                  <p>해당 캠핑장에 대해 어떻게 생각하시나요?</p>
+                </div>
+                <table class="review__tb">
+                  <thead>
+                    <tr>
+                      <th class="review__author">작성자</th>
+                      <th class="review__comment">코멘트</th>
+                      <th class="review__star">평점</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>조성민</td>
+                      <td>좋습니다</td>
+                      <td>4.6점</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="btn__close">
+                  <i class="fas fa-times"></i>
+                </button>
+              </article>
             </div>
           </li>
         </ul>
