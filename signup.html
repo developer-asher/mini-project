@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" placeholder="id" />
+      <button class="check">중복검사</button>
+      <input type="text" placeholder="password" />
+      <input type="text" placeholder="password 확인" />
+      <button class="btn__sign">회원가입</button>
+    </form>
+    <script>
+      const check = document.querySelector('check');
+      check.addEventListener('click', () => {
+        // Get: ajax로 서버와 통신해 같은 아이디 있는지 확인
+        // alert('있는지 없는지에 대한 결과');
+        console.log('중복검사 클릭');
+      });
+      btn__sign.addEventListener('click', () => {
+        // Post: id, password를 db에 저장
+        console.log('회원가입 완료');
+      });
+    </script>
+  </body>
+</html>
