@@ -1,5 +1,6 @@
 const body = document.querySelector('body');
-const camping = document.querySelector('.camping');
+const camping = document.querySelector('.camping__desc');
+const reviewStar = document.querySelector('.form__star');
 
 function openModal(ele) {
   const parent = ele.parentElement;
@@ -24,7 +25,6 @@ function createBanner() {
   const bannerLists = document.querySelectorAll('.banner > li');
   const bannerListWidth = bannerLists[0].getBoundingClientRect().width;
   const BANNER_COUNT = bannerLists.length;
-  console.log(BANNER_COUNT);
   let curIdx = 0;
 
   const li = document.createElement('li');
@@ -48,7 +48,7 @@ function createBanner() {
       setTimeout(() => {
         banner.style.transform = `translateX(0)`;
         banner.style.transition = 'transform 0s ease-out';
-      }, 1000);
+      }, 1001);
       curIdx = 0;
     }
   }, 2000);
@@ -56,10 +56,36 @@ function createBanner() {
 
 camping.addEventListener('click', (event) => {
   const target = event.target;
+
   if (target.className !== 'camping__review') {
     return false;
   }
 
   openModal(target);
 });
-window.addEventListener('load', createBanner);
+
+window.addEventListener('load', () => {
+  createBanner();
+});
+
+reviewStar.addEventListener('click', (event) => {
+  const target = event.target;
+  event.preventDefault();
+
+  if (target.tagName !== 'I') {
+    return false;
+  }
+  printStar(target);
+});
+
+function printStar(target) {
+  const nthStar = document.querySelectorAll('.star > i');
+  nthStar.forEach((item) => {
+    item.parentElement.classList.remove('on');
+  });
+
+  const num = target.className.split('_')[1];
+  for (let i = 0; i < num; i++) {
+    nthStar[i].parentElement.classList.add('on');
+  }
+}
