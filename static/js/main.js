@@ -19,7 +19,7 @@ function createCampingListTemp(ele, len) {
                       <div>
                         <i></i>
                         <p class="review__question">
-                          해당 캠핑장에 대해 어떻게 생각하시나요?
+                           ${name}에 대해 어떻게 생각하시나요?
                         </p>
                       </div>
                       <table class="review__tb">
@@ -31,11 +31,6 @@ function createCampingListTemp(ele, len) {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>조성민</td>
-                            <td>좋습니다</td>
-                            <td>4.6점</td>
-                          </tr>
                         </tbody>
                       </table>
                       <footer class="ft__review">
@@ -111,8 +106,9 @@ function createCampingListTemp(ele, len) {
 
 // 모달 창 열기
 function openModal(ele) {
-  const campingInfo = ele.parentElement.parentElement;
-  const targetModal = campingInfo.nextElementSibling;
+  const campingInfo = ele.parentElement.parentElement; // 캠핑 정보 카드
+  const campingName = campingInfo.querySelector('.camping__name').textContent; //캠핑장 이름
+  const targetModal = campingInfo.nextElementSibling; // 모달 창
   const btnClose = targetModal.querySelector('.btn__close');
 
   const formStar = targetModal.querySelector('.form__star');
@@ -123,6 +119,43 @@ function openModal(ele) {
   targetModal.classList.add('on');
   body.classList.add('stop__scroll');
 
+  // 리뷰보기
+  $.ajax({
+    type: 'POST',
+    url: '/show_reivew',
+    data: {campName_give: campingName},
+    success: function (response) {
+      const reviews = response.reviews;
+
+      if(reviews.length === 0) {  // 리뷰가 없을 시
+        const temp = `
+          <tr>
+            <td colspan="3">리뷰가 없습니다.</td>
+          </tr>
+        `;
+        reviewTable.innerHTML = temp;
+      } else {
+        reviewTable.innerHTML = ``; //리뷰초기화
+
+        for(let i = 0; i < reviews.length; i++) {  // 리뷰가 있을 시
+          const review_star = reviews[i].star;
+          const review_comment = reviews[i].comment;
+          const review_author = reviews[i].name;
+          const temp = `
+            <tr>
+              <td>${review_author}</td>
+              <td>${review_comment}</td>
+              <td>${review_star}점</td>
+            </tr>
+          `;
+
+          reviewTable.innerHTML += temp;
+        }
+      }
+    },
+  });
+
+  // 모달 찾기 닫기
   btnClose.addEventListener('click', () => {
     closeModal(targetModal);
   });
@@ -141,24 +174,34 @@ function openModal(ele) {
 
     const target = event.target;
     const parent = target.parentElement;
-    const star = parent.querySelectorAll('.star.on').length;
-    const comment = parent.querySelector('#write').value;
+    const star = parent.querySelectorAll('.star.on');
+    const starNum = star.length;
+    const comment = parent.querySelector('#write');
+    const commentText = comment.value;
+    let today = new Date().toISOString();
 
     reviewTable.innerHTML = ``;
 
+    // 리뷰저장
     $.ajax({
       type: 'POST',
       url: '/review',
-      data: { review_star: star, review_comment: comment },
+      data: {
+        campName_give: campingName,
+        comment_give: commentText,
+        star_give: starNum,
+        date_give: today,
+      },
       success: function (response) {
         const reviews = response.reviews;
 
         reviews.forEach((review) => {
           const review_star = review.star;
           const review_comment = review.comment;
+          const review_author = review.name;
           const temp = `
             <tr>
-              <td>조성민</td>
+              <td>${review_author}</td>
               <td>${review_comment}</td>
               <td>${review_star}점</td>
             </tr>
@@ -168,10 +211,15 @@ function openModal(ele) {
         });
       },
     });
+
+    // 리뷰작성 버튼 클릭 시 리뷰작성 폼 초기화
+    comment.value = ``;
+    star.forEach((item) => {
+      item.classList.remove('on');
+    });
   });
 }
 
-// 모달 창 닫기
 function closeModal(ele) {
   ele.classList.remove('on');
   body.classList.remove('stop__scroll');
@@ -190,6 +238,7 @@ function createBanner() {
     list.style.width = `${100 / (BANNER_COUNT + 1)}%`;
   });
 
+  // 자동 배너 작동
   setInterval(() => {
     if (curIdx <= 2) {
       banner.style.transform = `translateX(-${
@@ -226,6 +275,7 @@ function getCampingList() {
 // 리뷰 목록 보기
 function loadView() {}
 
+// 별점 체크
 function printStar(target) {
   const parents = target.parentElement.parentElement;
   const stars = target.className.split('_')[1];
