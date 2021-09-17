@@ -231,13 +231,13 @@ function closeModal(ele) {
 function createBanner() {
   const banner = document.querySelector('.banner');
   const bannerLists = document.querySelectorAll('.banner > li');
-  const bannerListWidth = bannerLists[0].getBoundingClientRect().width;
+  const bannerListWidth = bannerLists[0].getBoundingClientRect().width - 20;
   const BANNER_COUNT = bannerLists.length;
   let curIdx = 0;
 
-  banner.style.width = `${(BANNER_COUNT + 1) * 100}%`;
+  banner.style.width = `${BANNER_COUNT * 100}%`;
   bannerLists.forEach((list) => {
-    list.style.width = `${100 / (BANNER_COUNT + 1)}%`;
+    list.style.width = `${100 / BANNER_COUNT}%`;
   });
 
   // 자동 배너 작동
@@ -258,7 +258,7 @@ function createBanner() {
     }
 
     curIdx++;
-  }, 2000);
+  }, 5000);
 }
 
 function getCampingList() {
