@@ -1,10 +1,11 @@
 const body = document.querySelector('body');
 const campingWrap = document.querySelector('.camping');
-let SORT_NUM = 30;
+let CAMPING_LIST_NUM = 30;
 
+// 캠핑 리스트 템플릿
 function createCampingListTemp(ele, len) {
   campingWrap.innerHTML = ``;
-  len = len > SORT_NUM ? SORT_NUM : len;
+  len = len > CAMPING_LIST_NUM ? CAMPING_LIST_NUM : len;
 
   for (let i = 0; i < len; i++) {
     const img = ele[i].img;
