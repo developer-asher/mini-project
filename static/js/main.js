@@ -109,24 +109,75 @@ function createCampingListTemp(ele, len) {
   }
 }
 
+// 모달 창 열기
 function openModal(ele) {
   const campingInfo = ele.parentElement.parentElement;
   const targetModal = campingInfo.nextElementSibling;
+  const btnClose = targetModal.querySelector('.btn__close');
+
+  const formStar = targetModal.querySelector('.form__star');
+  const formRegister = targetModal.querySelector('.form__register');
+
+  const reviewTable = targetModal.querySelector('.review__tb>tbody');
 
   targetModal.classList.add('on');
   body.classList.add('stop__scroll');
 
-  const btnClose = targetModal.querySelector('.btn__close');
   btnClose.addEventListener('click', () => {
     closeModal(targetModal);
   });
+
+  // 리뷰 별점 체크
+  formStar.addEventListener('click', (event) => {
+    const target = event.target;
+    event.preventDefault();
+
+    printStar(target);
+  });
+
+  // 리뷰 등록
+  formRegister.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const target = event.target;
+    const parent = target.parentElement;
+    const star = parent.querySelectorAll('.star.on').length;
+    const comment = parent.querySelector('#write').value;
+
+    reviewTable.innerHTML = ``;
+
+    $.ajax({
+      type: 'POST',
+      url: '/review',
+      data: { review_star: star, review_comment: comment },
+      success: function (response) {
+        const reviews = response.reviews;
+
+        reviews.forEach((review) => {
+          const review_star = review.star;
+          const review_comment = review.comment;
+          const temp = `
+            <tr>
+              <td>조성민</td>
+              <td>${review_comment}</td>
+              <td>${review_star}점</td>
+            </tr>
+          `;
+
+          reviewTable.innerHTML += temp;
+        });
+      },
+    });
+  });
 }
 
+// 모달 창 닫기
 function closeModal(ele) {
   ele.classList.remove('on');
   body.classList.remove('stop__scroll');
 }
 
+// 슬라이드 배너
 function createBanner() {
   const banner = document.querySelector('.banner');
   const bannerLists = document.querySelectorAll('.banner > li');
@@ -160,8 +211,6 @@ function createBanner() {
 }
 
 function getCampingList() {
-  campingWrap.innerHTML = ``;
-
   $.ajax({
     type: 'GET',
     url: '/camping',
@@ -171,32 +220,6 @@ function getCampingList() {
 
       createCampingListTemp(campInfos, 30);
     },
-  });
-
-  campingWrap.addEventListener('click', (event) => {
-    const reviewStarWrap = campingWrap.querySelector('.form__star');
-    const reviewRegister = campingWrap.querySelector('.form__register');
-    const reviewComment = campingWrap.querySelector('#write');
-    const target = event.target;
-
-    event.preventDefault();
-
-    if (target.tagName !== 'I') {
-      return false;
-    }
-    printStar(target);
-
-    const star = reviewStarWrap.querySelectorAll('.star.on').length;
-    const comment = reviewComment.value;
-
-    $.ajax({
-      type: 'POST',
-      url: '/review',
-      data: { review_star: star, review_comment: comment },
-      success: function (response) {
-        console.log(response);
-      },
-    });
   });
 }
 
