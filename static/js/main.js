@@ -95,8 +95,8 @@ function createCampingListTemp(ele, len) {
                               <p class="camping__loc">${loc}</p>
                           </div>
                           <div>
-                              <a class="camping__link" href="${gourl}" target="_blank">바로가기</a>
-                              <button class="camping__review">리뷰작성</button>
+                              <a class="camping__link" href="${gourl}" target="_blank" data-btn='list_btn'>바로가기</a>
+                              <button class="camping__review" data-btn='list_btn'>리뷰작성</button>
                               <span class="camping__view">조회수 : ${view}</span>
                           </div>
                       </div>
@@ -288,10 +288,11 @@ window.addEventListener('load', () => {
   createBanner();
 });
 
+// 캠핑 리스트를 감싸고있는 camping에 이벤트 위임
 campingWrap.addEventListener('click', (event) => {
   const target = event.target;
 
-  if (target.className !== 'camping__review') {
+  if (target.dataset.btn !== 'list_btn') {
     return false;
   }
 
