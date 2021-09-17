@@ -28,19 +28,30 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script
       src="https://kit.fontawesome.com/8246ad551c.js"
       crossorigin="anonymous"
     ></script>
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script>
+      function onLogOut() {
+        $.removeCookie('mytoken');
+        alert('로그아웃');
+        window.location.href = '/login';
+      }
+    </script>
   </head>
   <body>
     <header class="hd clear">
       <div class="hd__inner">
         <h1 class="hd__logo">
-          <a href="">where we go</a>
+          <a href="./">where we go</a>
         </h1>
-        <button class="btn__login"><i class="far fa-user-circle"></i></button>
+        <button class="btn__logout" onclick="onLogOut()">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </button>
+        <span class="welcome">{{ users.name }} 님 환영합니다!</span>
       </div>
     </header>
 

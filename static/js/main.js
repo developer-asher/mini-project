@@ -123,11 +123,12 @@ function openModal(ele) {
   $.ajax({
     type: 'POST',
     url: '/show_reivew',
-    data: {campName_give: campingName},
+    data: { campName_give: campingName },
     success: function (response) {
       const reviews = response.reviews;
 
-      if(reviews.length === 0) {  // 리뷰가 없을 시
+      if (reviews.length === 0) {
+        // 리뷰가 없을 시
         const temp = `
           <tr>
             <td colspan="3">리뷰가 없습니다.</td>
@@ -137,7 +138,8 @@ function openModal(ele) {
       } else {
         reviewTable.innerHTML = ``; //리뷰초기화
 
-        for(let i = 0; i < reviews.length; i++) {  // 리뷰가 있을 시
+        for (let i = 0; i < reviews.length; i++) {
+          // 리뷰가 있을 시
           const review_star = reviews[i].star;
           const review_comment = reviews[i].comment;
           const review_author = reviews[i].name;
@@ -311,7 +313,7 @@ function setSortEvent() {
 
         if (sort_city.length <= 0) {
           alert('해당 지역에 관한 캠핑장이 없습니다.');
-          return false;
+          window.location.reload();
         }
         createCampingListTemp(sort_city, sort_city.length);
       },
@@ -373,6 +375,9 @@ campingWrap.addEventListener('click', (event) => {
   if (target.dataset.btn !== 'list_btn') {
     return false;
   }
-
-  openModal(target);
+  if (target.className === 'camping__link') {
+    return false;
+  } else {
+    openModal(target);
+  }
 });

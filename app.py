@@ -10,8 +10,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 SECRET_KEY = 'SPARTA'
 
-# client = MongoClient('3.36.48.90', 27017, username="test", password="test")
-client = MongoClient('localhost', 27017)
+client = MongoClient('3.34.138.243', 27017, username="test", password="test")
+# client = MongoClient('localhost', 27017)
 db = client.wherewego
 
 ## HTML 화면 보여주기
@@ -113,8 +113,6 @@ def sort_theme():
         if theme_receive in tag:
             sort_theme.append(camp)
 
-    for x in sort_theme:
-        print(x)
     return jsonify({'sort_theme': sort_theme})
 
 
@@ -159,7 +157,11 @@ def save_review():
             "camp_name": camps["name"]
         }
         db.reviews.insert_one(doc)
-        reviews = list(db.reviews.find({'camp_name': campName_receive}, {'_id': False}))
+        reviews = list(db.reviews.find({'camp_name': campName_receive}).sort("date", -1).limit(8))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        #     105~107까지는 읽어오는 포스트 중 조건 상관없이 5개의 최신 포스트만 보여주는 기능/
+        #     그 포스트에서 각각의 아이디를 문자열로 바꿈 / 그것을 클라이언트한테 pots라는 곳으로 던져줌
 
         return jsonify({"reviews": reviews})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
@@ -172,7 +174,7 @@ def show_review():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         campName_receive = request.form["campName_give"]
-        reviews = list(db.reviews.find({'camp_name': campName_receive}).sort("date", -1).limit(5))
+        reviews = list(db.reviews.find({'camp_name': campName_receive}).sort("date", -1).limit(8))
         for review in reviews:
             review["_id"] = str(review["_id"])
         #     105~107까지는 읽어오는 포스트 중 조건 상관없이 5개의 최신 포스트만 보여주는 기능/
