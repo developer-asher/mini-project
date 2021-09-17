@@ -223,28 +223,31 @@ function getCampingList() {
   });
 }
 
+// 리뷰 목록 보기
 function loadView() {}
 
 function printStar(target) {
   const parents = target.parentElement.parentElement;
+  const stars = target.className.split('_')[1];
   const nthStar = parents.querySelectorAll('.star > i');
 
   nthStar.forEach((item) => {
     item.parentElement.classList.remove('on');
   });
 
-  const stars = target.className.split('_')[1];
   for (let i = 0; i < stars; i++) {
     nthStar[i].parentElement.classList.add('on');
   }
 }
 
+// 캠핑 목록 소팅
 function setSortEvent() {
   const sortLoc = document.querySelector('#sort_loc');
   const sortView = document.querySelector('#sort_view');
   const sortTheme = document.querySelector('#sort_theme');
   let descending = true;
 
+  // 도시별 소팅
   sortLoc.addEventListener('change', (event) => {
     event.preventDefault();
     const city = event.target.value;
@@ -265,6 +268,7 @@ function setSortEvent() {
     });
   });
 
+  // 테마별 소팅
   sortTheme.addEventListener('change', (event) => {
     event.preventDefault();
     const theme = event.target.value;
@@ -281,6 +285,7 @@ function setSortEvent() {
     });
   });
 
+  // 리뷰수 소팅
   sortView.addEventListener('click', (event) => {
     event.preventDefault();
     if (descending) {
@@ -303,7 +308,7 @@ function setSortEvent() {
     });
   });
 }
-// sort event
+
 setSortEvent();
 
 window.addEventListener('load', () => {
