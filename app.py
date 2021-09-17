@@ -1,4 +1,3 @@
-from flask import Flask, render_template, jsonify, request
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from pymongo import MongoClient
 import jwt
@@ -9,7 +8,6 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-from pymongo import MongoClient
 SECRET_KEY = 'SPARTA'
 
 # client = MongoClient('3.36.48.90', 27017, username="test", password="test")
@@ -18,8 +16,6 @@ db = client.wherewego
 
 ## HTML 화면 보여주기
 @app.route('/')
-def homework():
-    return render_template('index.html')
 def home():
     token_receive = request.cookies.get('mytoken')
     # try 아래를 실행해서 에러가 생기면 except 구문으로 가라는 거
@@ -134,8 +130,8 @@ def sort_view():
     
     if order_receive == 'descending':
         sort_order = sorted(camps, key=(lambda x: x['view']), reverse=True)
-        for x in sort_order:
-            print(x)
+    else:
+        sort_order = sorted(camps, key=(lambda x: x['view']))
 
     return jsonify({'sort_order': sort_order})
 
@@ -143,18 +139,49 @@ def sort_view():
 # 캠핑 리뷰저장(POST)
 @app.route('/review', methods=['POST'])
 def save_review():
-    star = request.form['review_star']
-    comment = request.form['review_comment']
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"id": payload["id"]})
+        comment_receive = request.form["comment_give"]
+        star_receive = request.form["star_give"]
+        date_receive = request.form["date_give"]
+        campName_receive = request.form["campName_give"]
 
-    doc = {
-        'star': star,
-        'comment': comment,
-    }
+        camps = db.campinfos.find_one({'name': campName_receive})
 
-    db.reviews.insert_one(doc)
-    reviews = list(db.reviews.find({}, {'_id': False}))
+        doc = {
+            "id": user_info["id"],
+            "name": user_info["name"],
+            "comment": comment_receive,
+            "star": star_receive,
+            "date": date_receive,
+            "camp_name": camps["name"]
+        }
+        db.reviews.insert_one(doc)
+        reviews = list(db.reviews.find({'camp_name': campName_receive}, {'_id': False}))
 
-    return jsonify({'reviews': reviews})
+        return jsonify({"reviews": reviews})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+
+@app.route("/show_reivew", methods=['POST'])
+def show_review():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        campName_receive = request.form["campName_give"]
+        reviews = list(db.reviews.find({'camp_name': campName_receive}).sort("date", -1).limit(5))
+        for review in reviews:
+            review["_id"] = str(review["_id"])
+        #     105~107까지는 읽어오는 포스트 중 조건 상관없이 5개의 최신 포스트만 보여주는 기능/
+        #     그 포스트에서 각각의 아이디를 문자열로 바꿈 / 그것을 클라이언트한테 pots라는 곳으로 던져줌
+
+        return jsonify({"result": "success", "msg": "포스팅을 가져왔습니다.", "reviews": reviews})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
