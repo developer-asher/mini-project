@@ -231,7 +231,7 @@ function closeModal(ele) {
 function createBanner() {
   const banner = document.querySelector('.banner');
   const bannerLists = document.querySelectorAll('.banner > li');
-  const bannerListWidth = bannerLists[0].getBoundingClientRect().width - 20;
+  const bannerListWidth = bannerLists[0].getBoundingClientRect().width;
   const BANNER_COUNT = bannerLists.length;
   let curIdx = 0;
 
