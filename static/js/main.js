@@ -1,10 +1,10 @@
 const body = document.querySelector('body');
-const campingWrap = document.querySelector('.camping');
+const camping = document.querySelector('.camping');
 let CAMPING_LIST_NUM = 30;
 
 // 캠핑 리스트 템플릿
 function createCampingListTemp(ele, len) {
-  campingWrap.innerHTML = ``;
+  camping.innerHTML = ``;
   len = len > CAMPING_LIST_NUM ? CAMPING_LIST_NUM : len;
 
   for (let i = 0; i < len; i++) {
@@ -100,7 +100,7 @@ function createCampingListTemp(ele, len) {
                       </div>
                   </li>
               `;
-    campingWrap.innerHTML += temp;
+    camping.innerHTML += temp;
   }
 }
 
@@ -109,6 +109,7 @@ function openModal(ele) {
   const campingInfo = ele.parentElement.parentElement; // 캠핑 정보 카드
   const campingName = campingInfo.querySelector('.camping__name').textContent; //캠핑장 이름
   const targetModal = campingInfo.nextElementSibling; // 모달 창
+  console.log(targetModal);
   const btnClose = targetModal.querySelector('.btn__close');
 
   const formStar = targetModal.querySelector('.form__star');
@@ -157,7 +158,7 @@ function openModal(ele) {
     },
   });
 
-  // 모달 찾기 닫기
+  // 모달 창 닫기
   btnClose.addEventListener('click', () => {
     closeModal(targetModal);
   });
@@ -261,6 +262,7 @@ function createBanner() {
   }, 5000);
 }
 
+// 캠핑리스트
 function getCampingList() {
   $.ajax({
     type: 'GET',
@@ -273,9 +275,6 @@ function getCampingList() {
     },
   });
 }
-
-// 리뷰 목록 보기
-function loadView() {}
 
 // 별점 체크
 function printStar(target) {
@@ -369,12 +368,13 @@ window.addEventListener('load', () => {
 });
 
 // 캠핑 리스트를 감싸고있는 camping에 이벤트 위임
-campingWrap.addEventListener('click', (event) => {
+camping.addEventListener('click', (event) => {
   const target = event.target;
 
   if (target.dataset.btn !== 'list_btn') {
     return false;
   }
+
   if (target.className === 'camping__link') {
     return false;
   } else {

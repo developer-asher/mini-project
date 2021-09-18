@@ -56,19 +56,19 @@ a:visited {
 }
 
 .ft {
-  margin-top:60px;
-  padding:30px 0;
-  background:#242442;
+  margin-top: 60px;
+  padding: 30px 0;
+  background: #242442;
   text-align: center;
-  color:#ddd;
+  color: #ddd;
 }
 .ft__logo > a {
-  color:#eee;
+  color: #eee;
   font-family: 'Raleway', sans-serif;
 }
 .ft__corpyright {
-  margin-top:20px;
-  font-size:14px;
+  margin-top: 20px;
+  font-size: 14px;
 }
 
 .welcome {
@@ -122,7 +122,7 @@ a:visited {
   padding: 20px;
   border-radius: 2px;
   text-align: center;
-  background-color: #0766A0;
+  background-color: #0766a0;
 }
 .sorts {
   width: 150px;
@@ -133,7 +133,7 @@ a:visited {
   cursor: pointer;
 }
 #sort_loc {
-  margin-left:0;
+  margin-left: 0;
 }
 #sort_loc,
 #sort_theme {
@@ -155,13 +155,9 @@ a:visited {
   margin: 0 1.5% 30px 1.5%;
   float: left;
   background: #f7f7f7;
-  transition: transform 0.3s ease-in;
 }
 .camping__list:last-child {
   margin-right: 0;
-}
-.camping__list:hover {
-  transform: scale(1.05);
 }
 .camping__list > img {
   width: 40%;
@@ -197,16 +193,16 @@ a:visited {
 }
 .camping__link {
   display: inline-block;
-  margin-right:5px;
+  margin-right: 5px;
   padding: 3px 5px;
   line-height: 25px;
   background-color: #023554;
-  color:#fefefe;
+  color: #fefefe;
   transition: background-color 0.3s ease-in;
 }
 .camping__link:link,
 .camping__link:visited {
-  color:#fefefe;
+  color: #fefefe;
 }
 .camping__link:hover {
   background-color: #00558a;
@@ -216,16 +212,16 @@ a:visited {
   padding: 3px 5px;
   line-height: 25px;
   cursor: pointer;
-  background-color: #FC5185;
-  color:#fefefe;
+  background-color: #fc5185;
+  color: #fefefe;
   transition: background-color 0.3s ease-in;
 }
 .camping__review:hover {
-  background-color: #FF96AD;
+  background-color: #ff96ad;
 }
 .camping__view {
   display: block;
-  margin-top:5px;
+  margin-top: 5px;
 }
 .article__bg {
   display: none;
@@ -241,7 +237,7 @@ a:visited {
   display: block;
 }
 .review__popUp {
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   width: 70%;
@@ -357,16 +353,16 @@ a:visited {
   color: hsl(35, 70%, 53%);
 }
 
-@media screen and (max-width:800px)  {
+@media screen and (max-width: 800px) {
   .sorts {
     display: block;
     width: 150px;
     margin: 0 auto 30px auto;
   }
   #sort_loc {
-    margin-left:auto;
+    margin-left: auto;
   }
   #sort_view {
-    margin-bottom:0;
+    margin-bottom: 0;
   }
 }
