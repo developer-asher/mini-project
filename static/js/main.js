@@ -22,17 +22,19 @@ function createCampingListTemp(ele, len) {
                            ${name}에 대해 어떻게 생각하시나요?
                         </p>
                       </div>
-                      <table class="review__tb">
-                        <thead>
-                          <tr>
-                            <th class="review__author">작성자</th>
-                            <th class="review__comment">코멘트</th>
-                            <th class="review__star">평점</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
+                      <div class='reviewTb__wrap'>
+                        <table class="review__tb">
+                          <thead>
+                            <tr>
+                              <th class="review__author">작성자</th>
+                              <th class="review__comment">코멘트</th>
+                              <th class="review__star">평점</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
                       <footer class="ft__review">
                         <form class="review__form">
                           <p class="form__desc">별점과 이용후기를 남겨주세요.</p>
@@ -183,6 +185,11 @@ function openModal(ele) {
     const commentText = comment.value;
     let today = new Date().toISOString();
 
+    if (!starNum || !commentText) {
+      alert('리뷰를 등록해주세요.');
+      return false;
+    }
+
     reviewTable.innerHTML = ``;
 
     // 리뷰저장
@@ -232,8 +239,8 @@ function closeModal(ele) {
 function createBanner() {
   const banner = document.querySelector('.banner');
   const bannerLists = document.querySelectorAll('.banner > li');
-  const bannerListWidth = bannerLists[0].getBoundingClientRect().width;
   const BANNER_COUNT = bannerLists.length;
+  const bannerListWidth = 100 / BANNER_COUNT;
   let curIdx = 0;
 
   banner.style.width = `${BANNER_COUNT * 100}%`;
@@ -246,13 +253,13 @@ function createBanner() {
     if (curIdx <= 2) {
       banner.style.transform = `translateX(-${
         bannerListWidth * (curIdx + 1)
-      }px)`;
+      }%)`;
       banner.style.transition = `transform 1s ease-out`;
     }
 
     if (curIdx === 2) {
       setTimeout(() => {
-        banner.style.transform = `translateX(0)`;
+        banner.style.transform = `translateX(0px)`;
         banner.style.transition = 'transform 0s ease-out';
       }, 1000);
       curIdx = -1;

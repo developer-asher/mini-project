@@ -267,6 +267,10 @@ a:visited {
   height: 100%;
   vertical-align: bottom;
 }
+.reviewTb__wrap {
+  overflow-y: auto;
+  height: calc(100% - 300px);
+}
 .review__tb {
   width: 100%;
   overflow-y: auto;
@@ -284,6 +288,9 @@ a:visited {
 }
 .review__author {
   width: 15%;
+}
+.review__form {
+  background-color: #fff;
 }
 .review__comment {
   width: 60%;
